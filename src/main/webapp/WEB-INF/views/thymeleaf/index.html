@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Tasks</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12"></div>
+        <h2>Task form</h2>
+        <div class="alert alert-success" th:if="${successmessage}">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong th:text="${successmessage}"></strong>
+        </div>
+        <div class="alert alert-warning" th:if="${errormessage}">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong th:text="${errormessage}"></strong>
+        </div>
+        <form action="#" th:action="@{${isAdd}?'/save':'/update'}" th:object="${task}" method="post">
+            <br><br><br>
+            <div class="form-group">
+                <input type="text" class="form-control" id="description" placeholder="Description" th:field="*{description}">
+            </div>
+            <div class="form-group">
+                <select type="text" class="form-control" id="status" placeholder="Status" th:field="*{status}">
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    <option value="DONE">DONE</option>
+                    <option value="PAUSED">PAUSED</option>
+                </select>
+            </div>
+            <input type="hidden" class="form-control" th:field="*{id}">
+            <button type="submit" class="btn btn-primary" th:text="${isAdd}?'Save':'Update'">Submit</button>
+        </form>
+    </div>
+
+    <div class="col-md-12">
+        <h2>All Tasks</h2>
+        <div style="margin-top:10px">
+            <table id="tasktable" class="table table-striped table-border" style="width:100%">
+                <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task: ${tasks}">
+                    <td th:text="${task.getDescription()}"></td>
+                    <td th:text="${task.getStatus()}"></td>
+                    <td>
+                        <a th:href="@{'/getTask/'+${task.getId()}}"><i class="fa fa-edit" style="font-size: 21px;"></i></a>
+                        <a href="javascript:void(0)" class="confirm-delete" th:attr="data-id=${task.getId()}, data-name=${task.getDescription()}">
+                            <i class="fa fa-trash" style="font-size: 21px;color:red;"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript">
+    $("#tasktable").dataTable();
+    $(".confirm-delete").on('click', function(e){
+        e.preventDefault();
+        var id = $(this).data('id');
+        var name = $(this).data('name');
+        $("#modal-name").html(name);
+        $('#idModalLink').attr('href', '/My_todo_list/deleteTask/' + id);
+        $('#taskModal').modal('show');
+    });
+
+</script>
+<div class="modal fade" id="taskModal" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body" id="myModalBody">
+            <p> Do you want to delete this (<span id="modal-name"></span>) record?</p>
+        </div>
+        <div class="modal-footer">
+            <a id="idModalLink" href="#" class="btn btn-primary">Yes</a>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+</body>
+</html>
