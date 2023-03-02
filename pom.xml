@@ -164,7 +164,7 @@
   </dependencies>
 
   <build>
-    <finalName>root</finalName>
+    <finalName>My_todo_list/</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
