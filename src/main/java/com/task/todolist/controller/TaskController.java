@@ -27,8 +27,6 @@ public class TaskController {
 
     @GetMapping
     public String index(Model model) {
-        System.out.println("YYYYYYYYYYY");
-
         List<Task> tasks = taskDAO.findAll();
         model.addAttribute("tasks", tasks);
         model.addAttribute("task", new Task());
@@ -80,7 +78,7 @@ public class TaskController {
         }
     }
 
-    //DeleteMapping - почему-то не работает
+    //DeleteMapping - почему-то не работает с dataTable
     @GetMapping(value = "/deleteTask/{id}")
     public String deleteTask(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         taskDAO.deleteById(id);

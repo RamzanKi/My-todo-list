@@ -16,6 +16,8 @@
     <spring.version>5.2.3.RELEASE</spring.version>
   </properties>
 
+
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -162,6 +164,7 @@
   </dependencies>
 
   <build>
+    <finalName>root</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -176,7 +179,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.3</version>
+        <version>3.3.2</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>

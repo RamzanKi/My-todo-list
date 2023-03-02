@@ -13,7 +13,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12"></div>
-        <h2>Task form</h2>
+        <h2>Todo list</h2>
         <div class="alert alert-success" th:if="${successmessage}">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong th:text="${successmessage}"></strong>
@@ -85,6 +85,12 @@
         $('#idModalLink').attr('href', '/My_todo_list/deleteTask/' + id);
         $('#taskModal').modal('show');
     });
+
+    // function getBaseUrl() {
+    //     let current_path = window.location.href;
+    //     let end_position = current_path.indexOf('?');
+    //     return current_path.substring(0, end_position);
+    // }
 
 </script>
 <div class="modal fade" id="taskModal" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
